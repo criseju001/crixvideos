@@ -44,6 +44,13 @@ function getThumbUrl(url) {
   return defaultThumb;
 }
 
+function deleteVideo(index) {
+  const videos = JSON.parse(localStorage.getItem('videos')) || [];
+  videos.splice(index, 1);
+  localStorage.setItem('videos', JSON.stringify(videos));
+  loadVideos();
+}
+
 function loadVideos() {
   const videos = JSON.parse(localStorage.getItem('videos')) || [];
   gallery.innerHTML = '';
@@ -60,11 +67,26 @@ function loadVideos() {
         ? `https://drive.google.com/file/d/${video.driveId}/preview` 
         : video.url;
 
-      div.innerHTML = `
-        <img src="${video.thumb || defaultThumb}" alt="${video.title}">
-        <button class="delete-btn" data-index="${index}">×</button>
-      `;
+      // Cria e adiciona a imagem
+      const img = document.createElement('img');
+      img.src = video.thumb || defaultThumb;
+      img.alt = video.title;
+      img.addEventListener('click', () => {
+        window.open(videoURL, '_blank');
+      });
+      div.appendChild(img);
+
+      // Cria e adiciona o botão de deletar
+      const deleteButton = document.createElement('button');
+      deleteButton.className = 'delete-btn';
+      deleteButton.textContent = '×';
+      deleteButton.addEventListener('click', (e) => {
+        e.stopPropagation();
+        deleteVideo(index);
+      });
+      div.appendChild(deleteButton);
       
+      // Adiciona o link de download apenas para vídeos do Google Drive
       if (video.driveId) {
           const downloadLink = document.createElement('a');
           downloadLink.className = 'download-link-full';
@@ -73,16 +95,8 @@ function loadVideos() {
           downloadLink.target = '_blank';
           div.appendChild(downloadLink);
       }
-
-      div.querySelector('img').addEventListener('click', () => {
-        window.open(videoURL, '_blank');
-      });
-
-      div.querySelector('.delete-btn').addEventListener('click', (e) => {
-        e.stopPropagation();
-        deleteVideo(index);
-      });
       
+      // Eventos de arrastar e soltar
       div.addEventListener('dragstart', (e) => {
         draggedItem = e.target;
         e.dataTransfer.effectAllowed = 'move';
