@@ -76,7 +76,6 @@ main {
   opacity: 1;
 }
 
-/* Novo estilo para o link de download */
 .download-link-full {
   display: block;
   width: 100%;
@@ -104,6 +103,7 @@ form {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  text-align: center; /* ESTA LINHA FOI ADICIONADA/EDITADA */
 }
 
 input, button {
@@ -161,7 +161,6 @@ button[type="submit"]:hover {
   }
 }
 
-/* Estilos para a tela de login */
 #login-container {
   display: flex;
   justify-content: center;
@@ -189,7 +188,6 @@ button[type="submit"]:hover {
   display: none !important;
 }
 
-/* Estilos para o efeito de arrastar e soltar */
 .dragging {
   opacity: 0.5;
 }
@@ -198,7 +196,6 @@ button[type="submit"]:hover {
   border: 2px dashed white;
 }
 
-/* Novo estilo para o texto "Mostrar Senha" */
 #toggle-password-text {
   color: #ff3860;
   font-size: 0.8rem;
