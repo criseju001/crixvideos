@@ -64,6 +64,15 @@ function loadVideos() {
         <img src="${video.thumb || defaultThumb}" alt="${video.title}">
         <button class="delete-btn" data-index="${index}">×</button>
       `;
+      
+      if (video.driveId) {
+          const downloadLink = document.createElement('a');
+          downloadLink.className = 'download-link-full';
+          downloadLink.textContent = 'Baixar Vídeo';
+          downloadLink.href = `https://drive.google.com/uc?export=download&id=${video.driveId}`;
+          downloadLink.target = '_blank';
+          div.appendChild(downloadLink);
+      }
 
       div.querySelector('img').addEventListener('click', () => {
         window.open(videoURL, '_blank');
@@ -73,7 +82,7 @@ function loadVideos() {
         e.stopPropagation();
         deleteVideo(index);
       });
-
+      
       div.addEventListener('dragstart', (e) => {
         draggedItem = e.target;
         e.dataTransfer.effectAllowed = 'move';
@@ -168,7 +177,7 @@ form.addEventListener('submit', e => {
   const youtubeId = extractYoutubeId(url);
   
   const newVideo = { 
-    title: url, // Usa a URL como título
+    title: url, 
     url, 
     thumb: getThumbUrl(url),
     driveId: driveId,
