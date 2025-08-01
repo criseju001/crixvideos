@@ -29,12 +29,16 @@ main {
 
 .thumb {
   position: relative;
-  width: 200px;
+  width: 250px;
   cursor: pointer;
   transition: transform 0.2s;
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 .thumb:hover {
@@ -65,10 +69,30 @@ main {
   align-items: center;
   opacity: 0;
   transition: opacity 0.2s;
+  z-index: 2;
 }
 
 .thumb:hover .delete-btn {
   opacity: 1;
+}
+
+/* Novo estilo para o link de download */
+.download-link-full {
+  display: block;
+  width: 100%;
+  background-color: #1a1a1a;
+  color: #fff;
+  border: none;
+  padding: 8px 10px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  text-align: center;
+  text-decoration: none;
+}
+
+.download-link-full:hover {
+  background-color: #333;
 }
 
 form {
@@ -144,11 +168,6 @@ button[type="submit"]:hover {
   align-items: center;
   height: 100vh;
   text-align: center;
-}
-
-#login-container h1 {
-  font-size: 3rem;
-  margin-bottom: 20px;
 }
 
 #login-container form {
